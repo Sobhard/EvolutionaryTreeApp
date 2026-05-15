@@ -23,7 +23,7 @@ class Habitat(Enum):
     GRASSLAND = "Grassland"
     TAIGA = "Taiga"
 
-class COVERING(Enum):
+class Covering(Enum):
     """Covering types for Animals."""
     FUR = "Fur"
     FEATHERS = "Feathers"
@@ -31,7 +31,7 @@ class COVERING(Enum):
     SKIN = "Skin"
     EXOSKELETON = "Exoskeleton"
 
-class LOCOMOTION(Enum):
+class Locomotion(Enum):
     """Locomotion types for Animals."""
     WALKING = "Walking"
     FLYING = "Flying"
