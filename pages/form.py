@@ -4,11 +4,11 @@ import streamlit as st
 from models import traits, animal
 
 
+@st.dialog("Create a New Animal")
 def create_animal_form():
     """
     Creates a form for users to input animal data.
     """
-    st.title("Create a New Animal")
 
     name: str = st.text_input("Animal Name")
 
@@ -43,4 +43,6 @@ def create_animal_form():
             locomotion=locomotion,
             num_limbs=num_limbs,
         )
-        st.success(f"Created animal: {new_animal}")
+        st.session_state.animals.append(new_animal)
+        st.session_state.popup_open = False
+        st.rerun()
