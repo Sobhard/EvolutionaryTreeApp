@@ -1,6 +1,6 @@
 """Animal class to hold animal data, contains serializaiton and deserialization methods."""
 
-import traits as traits
+from models import traits
 
 
 class Animal:
