@@ -46,3 +46,6 @@ def create_animal_form():
         st.session_state.animals.append(new_animal)
         st.session_state.popup_open = False
         st.rerun()
+
+
+create_animal_form()

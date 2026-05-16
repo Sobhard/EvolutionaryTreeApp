@@ -1,7 +1,7 @@
 """Entry point for the evolutionary tree app."""
 
 import streamlit as st
-from pages.form import create_animal_form
+from components.form import create_animal_form
 
 st.session_state.setdefault("animals", [])
 st.session_state.setdefault("popup_open", False)
