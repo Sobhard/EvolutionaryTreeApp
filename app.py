@@ -2,11 +2,14 @@
 
 import streamlit as st
 from components.form import create_animal_form
+from components import database as db
 
 st.session_state.setdefault("animals", [])
+st.session_state.database = db.get_client()
 st.session_state.setdefault("popup_open", False)
 
 st.title("Evolutionary Tree App")
+st.write(st.session_state.get("database"))
 st.write(
     "Welcome to the Evolutionary Tree App! Use the form below to create new animals."
 )

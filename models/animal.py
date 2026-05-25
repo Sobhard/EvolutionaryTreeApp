@@ -10,7 +10,7 @@ class Animal:
     def __init__(
         self,
         name: str,
-        tropic_level: traits.TrophicLevel,
+        trophic_level: traits.TrophicLevel,
         habitat: traits.Habitat,
         covering: traits.Covering,
         locomotion: traits.Locomotion,
@@ -19,7 +19,7 @@ class Animal:
     ):
 
         self.name = name
-        self.trophic_level = tropic_level
+        self.trophic_level = trophic_level
         self.habitat = habitat
         self.locomotion = locomotion
         self.covering = covering
@@ -31,11 +31,12 @@ class Animal:
         """Serializes the animal object into a dictionary with all the fields"""
         return {
             "name": self.name,
-            "trophic_level": self.trophic_level,
-            "habitat": self.habitat,
-            "covering": self.covering,
+            "trophic_level": self.trophic_level.value,
+            "habitat": self.habitat.value,
+            "locomotion": self.locomotion.value,
+            "covering": self.covering.value,
             "num_limbs": self.num_limbs,
-            "self.user_generated": self.user_generated,
+            "user_generated": self.user_generated,
         }
 
     @classmethod
@@ -43,7 +44,7 @@ class Animal:
         """Creates an animal object from dict fetched from database"""
         return cls(
             name=data["name"],
-            tropic_level=traits.TrophicLevel(data["trophic_level"]),
+            trophic_level=traits.TrophicLevel(data["trophic_level"]),
             habitat=traits.Habitat(data["habitat"]),
             covering=traits.Covering(data["covering"]),
             locomotion=traits.Locomotion(data["locomotion"]),

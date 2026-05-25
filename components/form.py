@@ -2,51 +2,66 @@
 
 import streamlit as st
 from models import traits, animal
+from components.database import add_animal
 
 
 @st.dialog("Create a New Animal")
 def create_animal_form():
-    """
-    Creates a form for users to input animal data.
-    """
+    """Creates a form for users to input animal data safely inside a dialog."""
 
-    name: str = st.text_input("Animal Name")
+    with st.form("new_animal_submission_form", clear_on_submit=False):
+        name: str = st.text_input("Animal Name")
 
-    trophic_level: traits.TrophicLevel = st.selectbox(
-        "Trophic Level",
-        list(traits.TrophicLevel),
-        format_func=lambda level: level.value,
-    )
-
-    habitat = st.selectbox(
-        "Habitat", list(traits.Habitat), format_func=lambda habitat: habitat.value
-    )
-
-    covering = st.selectbox(
-        "Covering", list(traits.Covering), format_func=lambda covering: covering.value
-    )
-
-    locomotion = st.selectbox(
-        "Locomotion",
-        list(traits.Locomotion),
-        format_func=lambda locomotion: locomotion.value,
-    )
-
-    num_limbs = st.number_input("Number of Limbs", min_value=0, step=1)
-
-    if st.button("Create Animal"):
-        new_animal = animal.Animal(
-            name=name,
-            tropic_level=trophic_level,
-            habitat=habitat,
-            covering=covering,
-            locomotion=locomotion,
-            num_limbs=num_limbs,
-            user_generated=True,
+        trophic_level: traits.TrophicLevel = st.selectbox(
+            "Trophic Level",
+            list(traits.TrophicLevel),
+            format_func=lambda level: level.value,
         )
-        st.session_state.animals.append(new_animal)
-        st.session_state.popup_open = False
-        st.rerun()
 
+        habitat = st.selectbox(
+            "Habitat", list(traits.Habitat), format_func=lambda habitat: habitat.value
+        )
 
-create_animal_form()
+        covering = st.selectbox(
+            "Covering",
+            list(traits.Covering),
+            format_func=lambda covering: covering.value,
+        )
+
+        locomotion = st.selectbox(
+            "Locomotion",
+            list(traits.Locomotion),
+            format_func=lambda locomotion: locomotion.value,
+        )
+
+        num_limbs = st.number_input("Number of Limbs", min_value=0, step=1)
+        submitted = st.form_submit_button("Create Animal")
+
+        if submitted:
+            if not name.strip():
+                st.error("Please enter a valid name for the animal.")
+                return
+
+            new_animal = animal.Animal(
+                name=name,
+                trophic_level=trophic_level,
+                habitat=habitat,
+                covering=covering,
+                locomotion=locomotion,
+                num_limbs=num_limbs,
+                user_generated=True,
+            )
+
+            try:
+                db_client = st.session_state.get("database")
+                if db_client is None:
+                    st.error("Database client not found in session state.")
+                    return
+
+                add_animal(new_animal, db_client)
+
+                st.session_state.popup_open = False
+                st.rerun()
+
+            except Exception as e:
+                st.error(f"Failed to submit to database: {e}")
