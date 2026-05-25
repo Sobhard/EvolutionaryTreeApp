@@ -3,20 +3,47 @@
 from enum import Enum
 
 
-class TrophicLevel(Enum):
-    """Trophic levels for characters."""
+class Symmetry(Enum):
+    """Symmetry types for animals."""
 
-    PRODUCER = "Producer"
-    PRIMARY_CONSUMER = "Primary Consumer"
-    SECONDARY_CONSUMER = "Secondary Consumer"
-    TERTIARY_CONSUMER = "Tertiary Consumer"
-    DECOMPOSER = "Decomposer"
+    BILATERAL = "Bilateral"
+    RADIAL = "Radial"
+    ASYMMETRICAL = "Asymmetrical"
+
+
+class SkeletonType(Enum):
+    """Skeleton types for animals."""
+
+    ENDOSKELETON = "Endoskeleton"
+    EXOSKELETON = "Exoskeleton"
+    HYDROSTATIC = "Hydrostatic"
+    NONE = "None"
+
+
+class Covering(Enum):
+    """Covering types for animals."""
+
+    HAIR_FUR = "Hair/Fur"
+    FEATHERS = "Feathers"
+    SCALES = "Scales"
+    CHITIN = "Chitin"
+    SMOOTH_SKIN = "Smooth/Permeable Skin"
+    MUCUS = "Mucus"
+
+
+class Respiration(Enum):
+    """Respiration systems for animals."""
+
+    LUNGS = "Lungs"
+    GILLS = "Gills"
+    DIFFUSION = "Skin/Diffusion"
+    SPIRACLES = "Spiracles/Trachea"
 
 
 class Habitat(Enum):
-    """Habitats for Animals"""
+    """Habitats for animals."""
 
-    TROPICAL_RAIFOREST = "Tropical Rainforest"
+    TROPICAL_RAINFOREST = "Tropical Rainforest"
     TEMPERATE_FOREST = "Temperate Forest"
     TUNDRA = "Tundra"
     POLAR = "Polar"
@@ -27,23 +54,3 @@ class Habitat(Enum):
     DESERT = "Desert"
     GRASSLAND = "Grassland"
     TAIGA = "Taiga"
-
-
-class Covering(Enum):
-    """Covering types for Animals."""
-
-    FUR = "Fur"
-    FEATHERS = "Feathers"
-    SCALES = "Scales"
-    SKIN = "Skin"
-    EXOSKELETON = "Exoskeleton"
-
-
-class Locomotion(Enum):
-    """Locomotion types for Animals."""
-
-    WALKING = "Walking"
-    FLYING = "Flying"
-    SWIMMING = "Swimming"
-    CLIMBING = "Climbing"
-    JUMPING = "Jumping"

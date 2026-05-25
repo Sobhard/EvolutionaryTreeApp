@@ -5,7 +5,7 @@ from supabase import create_client, Client
 from models.animal import Animal
 import streamlit as st
 
-ANIMALS_TABLE: str = "animals"
+ANIMALS_TABLE: str = "creatures"
 
 
 @st.cache_resource
