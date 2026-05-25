@@ -42,6 +42,14 @@ def create_animal_form():
                 st.error("Please enter a valid name for the animal.")
                 return
 
+            taken_names: list[str] = [a.name for a in st.session_state.animals]
+
+            if name in taken_names:
+                st.error(
+                    "Animal name is already in use, please choose a different name"
+                )
+                return
+
             new_animal = animal.Animal(
                 name=name,
                 trophic_level=trophic_level,
