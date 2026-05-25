@@ -42,6 +42,7 @@ def create_animal_form():
             covering=covering,
             locomotion=locomotion,
             num_limbs=num_limbs,
+            user_generated=True,
         )
         st.session_state.animals.append(new_animal)
         st.session_state.popup_open = False
