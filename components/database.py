@@ -17,7 +17,6 @@ def get_client() -> Client:
 def add_animal(new_animal: Animal, db: Client) -> APIResponse:
     """Adds an animal to the database"""
     animal_data: dict = new_animal.to_dict()
-    st.write(animal_data)
     return db.table(ANIMALS_TABLE).insert(animal_data).execute()
 
 
