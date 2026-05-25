@@ -12,6 +12,7 @@ st.title("Evolutionary Tree App")
 st.write(
     "Welcome to the Evolutionary Tree App! Use the form below to create new animals."
 )
+db.fetch_animals(st.session_state.database)
 st.button(
     "Create New Animal", on_click=lambda: st.session_state.update({"popup_open": True})
 )
