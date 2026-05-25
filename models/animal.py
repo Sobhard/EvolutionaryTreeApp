@@ -22,9 +22,8 @@ class Animal:
         warm_blooded: bool,
         lays_eggs: bool,
         metamorphosis: bool,
-        latitude: float,
-        longitude: float,
         habitat: traits.Habitat,
+        region: traits.Region,
         user_generated: bool = True,
     ):
 
@@ -42,9 +41,8 @@ class Animal:
         self.warm_blooded = warm_blooded
         self.lays_eggs = lays_eggs
         self.metamorphosis = metamorphosis
-        self.latitude = latitude
-        self.longitude = longitude
         self.habitat = habitat
+        self.region = region
         self.user_generated = user_generated
 
     # -------------------------------SERIALIZATION METHODS-----------------------------
@@ -64,9 +62,8 @@ class Animal:
             "warm_blooded": self.warm_blooded,
             "lays_eggs": self.lays_eggs,
             "metamorphosis": self.metamorphosis,
-            "latitude": self.latitude,
-            "longitude": self.longitude,
             "habitat": self.habitat.value,
+            "region": self.region.value,
             "user_generated": self.user_generated,
         }
 
@@ -87,9 +84,8 @@ class Animal:
             warm_blooded=data["warm_blooded"],
             lays_eggs=data["lays_eggs"],
             metamorphosis=data["metamorphosis"],
-            latitude=data["latitude"],
-            longitude=data["longitude"],
             habitat=traits.Habitat(data["habitat"]),
+            region=traits.Region(data["region"]),
             user_generated=data.get("user_generated", True),
         )
 
@@ -118,7 +114,6 @@ class Animal:
 
         st.write("### Biogeography")
         st.write(f"**Habitat:** {self.habitat.value}")
-        st.write(f"**Coordinates:** {self.latitude}, {self.longitude}")
 
     def write_animal_name_clickable(self):
         """Displays animal name as a clickable text that opens more details."""

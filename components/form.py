@@ -53,15 +53,9 @@ def create_animal_form():
             "Habitat", list(traits.Habitat), format_func=lambda hab: hab.value
         )
 
-        lat_col, lon_col = st.columns(2)
-        with lat_col:
-            latitude = st.number_input(
-                "Latitude", min_value=-90.0, max_value=90.0, value=0.0, step=0.1
-            )
-        with lon_col:
-            longitude = st.number_input(
-                "Longitude", min_value=-180.0, max_value=180.0, value=0.0, step=0.1
-            )
+        region = st.selectbox(
+            "Geographic Region", list(traits.Region), format_func=lambda r: r.value
+        )
 
         submitted = st.form_submit_button("Create Animal")
 
@@ -93,8 +87,7 @@ def create_animal_form():
                 warm_blooded=warm_blooded,
                 lays_eggs=lays_eggs,
                 metamorphosis=metamorphosis,
-                latitude=latitude,
-                longitude=longitude,
+                region=region,
                 habitat=habitat,
                 user_generated=True,
             )

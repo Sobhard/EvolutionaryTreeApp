@@ -54,3 +54,43 @@ class Habitat(Enum):
     DESERT = "Desert"
     GRASSLAND = "Grassland"
     TAIGA = "Taiga"
+
+
+class Region(Enum):
+    """
+    World regions that correspond to ancient tectonic bodies
+    """
+
+    NORTH_AMERICA = "North America"
+    EURASIA = "Europe & Northern Asia"
+    SOUTH_AMERICA = "South America"
+    AFRICA = "Africa"
+    AUSTRALIA_ANTARCTICA = "Australia & Antarctica"
+    CENTRAL_AMERICA_CARIBBEAN = "Central America & Caribbean"
+    MEDITERRANEAN_TETHYS = "Mediterranean & Middle East"
+    INDIAN_SUBCONTINENT = "Indian Subcontinent"
+    MADAGASCAR = "Madagascar"
+    OCEAN = "Ocean"
+
+    @property
+    def ancient_continent(self) -> str:
+        """Maps the modern region back to its high-level Cretaceous paleogeographic origin."""
+        if self in (Region.NORTH_AMERICA, Region.EURASIA):
+            return "Laurasia"
+
+        elif self in (
+            Region.SOUTH_AMERICA,
+            Region.AFRICA,
+            Region.AUSTRALIA_ANTARCTICA,
+            Region.MADAGASCAR,
+        ):
+            return "Gondwana"
+
+        elif self == Region.INDIAN_SUBCONTINENT:
+            return "Gondwana Island"
+
+        elif self in (Region.CENTRAL_AMERICA_CARIBBEAN, Region.MEDITERRANEAN_TETHYS):
+            return "Tethys/Tectonic Bridge"
+
+        else:
+            return "Panthalassa Ocean"
