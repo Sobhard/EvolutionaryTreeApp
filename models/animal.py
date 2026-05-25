@@ -15,20 +15,48 @@ class Animal:
         covering: traits.Covering,
         locomotion: traits.Locomotion,
         num_limbs: int,
+        user_generated: bool,
     ):
 
         self.name = name
-        self.tropic_level = tropic_level
+        self.trophic_level = tropic_level
         self.habitat = habitat
         self.locomotion = locomotion
         self.covering = covering
         self.num_limbs = num_limbs
+        self.user_generated = user_generated
 
+    # -------------------------------SERIALIZATION METHODS-----------------------------
+    def to_dict(self) -> dict:
+        """Serializes the animal object into a dictionary with all the fields"""
+        return {
+            "name": self.name,
+            "trophic_level": self.trophic_level,
+            "habitat": self.habitat,
+            "covering": self.covering,
+            "num_limbs": self.num_limbs,
+            "self.user_generated": self.user_generated,
+        }
+
+    @classmethod
+    def from_dict(cls, data: dict):
+        """Creates an animal object from dict fetched from database"""
+        return cls(
+            name=data["name"],
+            tropic_level=traits.TrophicLevel(data["trophic_level"]),
+            habitat=traits.Habitat(data["habitat"]),
+            covering=traits.Covering(data["covering"]),
+            locomotion=traits.Locomotion(data["locomotion"]),
+            num_limbs=data["num_limbs"],
+            user_generated=data["user_generated"],
+        )
+
+    # -------------------------------DISPLAY METHODS-----------------------------------
     @st.dialog("Animal Details")
     def display_details(self):
         """Displays the details of the animal in a dialog."""
         st.write(f"Name: {self.name}")
-        st.write(f"Trophic Level: {self.tropic_level.value}")
+        st.write(f"Trophic Level: {self.trophic_level.value}")
         st.write(f"Habitat: {self.habitat.value}")
         st.write(f"Covering: {self.covering.value}")
         st.write(f"Locomotion: {self.locomotion.value}")
