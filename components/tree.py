@@ -14,6 +14,8 @@ def get_graph(animal_node_size: int, node_size: int):
     distances = create_distance_matrix()
     names = [a.name for a in st.session_state.animals]
     links = neighbor_joining(distances, names)
+    for edge in links:
+        edge["value"] = round((1 / edge["value"]), 3)
 
     node_names = set()
     for edge in links:
@@ -23,13 +25,28 @@ def get_graph(animal_node_size: int, node_size: int):
     data = []
 
     for name in node_names:
-        if name[:5] == "Node_":
+        if name[:16] == "Common Ancestor ":
             data.append(
-                {"name": name, "label": {"show": False}, "symbolSize": node_size}
+                {
+                    "name": name,
+                    "label": {"show": False},
+                    "symbolSize": node_size,
+                    "itemStyle": {"color": "#96ae8d"},
+                }
             )
 
         else:
-            data.append({"name": name, "symbolSize": animal_node_size})
+            data.append(
+                {
+                    "name": name,
+                    "symbolSize": animal_node_size,
+                    "itemStyle": {
+                        "color": "#96ae8d",
+                        "borderColor": "#1B5E20",
+                        "borderWidth": 2,
+                    },
+                }
+            )
 
     return {"data": data, "links": links}
 
@@ -49,7 +66,6 @@ def calculate_distance(first: dict, second: dict) -> int:
 
         elif key in ("wings", "legs", "tentacles", "arms"):
             dist += abs(first[key] - second[key])
-            pass
 
         elif first[key] != second[key]:
             dist += 1
@@ -102,7 +118,7 @@ def neighbor_joining(dist_matrix: np.ndarray, names: list[str]) -> list[dict]:
 
         node_i = active_nodes[i]
         node_j = active_nodes[j]
-        new_ancestor_name = f"Node_{internal_node_id}"
+        new_ancestor_name = f"Common Ancestor {internal_node_id}"
         internal_node_id += 1
 
         # 3. Calculate separate branch lengths
@@ -164,6 +180,3 @@ def neighbor_joining(dist_matrix: np.ndarray, names: list[str]) -> list[dict]:
     )
 
     return echarts_edges
-
-
-# def plot(graphing_schema: list[dict]):

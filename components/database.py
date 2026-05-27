@@ -26,9 +26,11 @@ def session_state_from_response(query_response: APIResponse):
         st.session_state.animals.append(Animal.from_dict(animal_dict))
 
 
-def fetch_animals(db: Client):
+def fetch_animals(db: Client) -> bool:
     """Checks if there is new animals to fetch,
-    if yes, adds those new animals to the session state"""
+    if yes, adds those new animals to the session state.
+
+    Returns: True if animals were fetched, False otherwise"""
 
     num_local_animals: int = len(st.session_state.animals)
 
@@ -36,6 +38,7 @@ def fetch_animals(db: Client):
         try:
             response: APIResponse = db.table(ANIMALS_TABLE).select("*").execute()
             session_state_from_response(response)
+            return True
 
         except Exception as e:
             st.error(f"Failed to load animals {e}")
@@ -53,10 +56,10 @@ def fetch_animals(db: Client):
         st.error(f"Failed to get count {e}")
 
     if num_rows is None:
-        return
+        return False
 
     if num_local_animals >= num_rows:
-        return
+        return False
 
     local_animal_names: list[str] = [a.name for a in st.session_state.animals]
 
@@ -69,6 +72,9 @@ def fetch_animals(db: Client):
         )
 
         session_state_from_response(response)
+        return True
 
     except Exception as e:
         st.error(f"Failed to update animals list {e}")
+
+    return True
