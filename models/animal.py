@@ -90,11 +90,10 @@ class Animal:
         )
 
     # -------------------------------DISPLAY METHODS-----------------------------------
-    @st.dialog("Animal Details")
+    @st.dialog("About this Animal")
     def display_details(self):
         """Displays the details of the animal in a clean, sectioned dialog."""
-        st.subheader(f"Name: {self.name}")
-
+        st.write(f"# {self.name}")
         st.write("## Morphology")
         st.write(f"**Symmetry:** {self.symmetry.value}")
         st.write(f"**Skeleton:** {self.skeleton_type.value}")
