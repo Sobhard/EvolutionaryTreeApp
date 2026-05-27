@@ -39,7 +39,14 @@ with col2:
     )
 
 st.divider()
+st.write("""
+         ### About Me
+         I created this webapp for the HUES Tech Night at Hammarsjkold Upper Elementary School. 
+         I author a computational biology blog called https://CompBioOdyssey.com. I love
+         computer science and biology!
+         """)
 
-st.write("Current Animals in the Evolutionary Tree:")
+st.divider()
+st.write("### Current Animals in the Evolutionary Tree:")
 for animal in st.session_state.animals:
     animal.write_animal_name_clickable()
