@@ -2,7 +2,6 @@
 
 import streamlit as st
 from components.form import create_animal_form
-from components.tree import *
 from components import database as db
 
 st.session_state.setdefault("animals", [])
