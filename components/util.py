@@ -15,9 +15,7 @@ def initialize_session():
         with st.spinner("Excavating fossil records... (Fetching from database)"):
 
             st.session_state.database = get_client()
-
             st.session_state.setdefault("animals", [])
-            st.session_state.setdefault("popup_open", False)
 
             fetch_animals(st.session_state.database)
 

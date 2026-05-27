@@ -4,6 +4,8 @@ import streamlit as st
 from streamlit_echarts import st_echarts
 from components.util import fetch_button_callback, initialize_session
 from components.tree import get_graph
+from components.database import fetch_animals
+from components.form import create_animal_form
 
 initialize_session()
 
@@ -51,12 +53,14 @@ st.write("""
 col1, col2 = st.columns(2)
 
 with col1:
-    st.button(
+    if st.button(
         "Create New Animal",
         type="primary",
         on_click=lambda: st.session_state.update({"popup_open": True}),
         width="stretch",
-    )
+    ):
+        fetch_animals(st.session_state.database)
+        create_animal_form()
     if st.button(
         "Back to Home Page",
         type="secondary",
@@ -105,9 +109,10 @@ echarts_options = {
     ],
 }
 
-clicked_name: dict = st_echarts(
-    options=echarts_options, height="500px", events=graph_events
-)
+with st.spinner("Deciphering Evolutionary Histories"):
+    clicked_name: dict = st_echarts(
+        options=echarts_options, height="500px", events=graph_events
+    )
 
-if clicked_name:
-    show_animal_popup(clicked_name["chart_event"])
+    if clicked_name:
+        show_animal_popup(clicked_name["chart_event"])

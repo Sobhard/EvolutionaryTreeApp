@@ -7,9 +7,9 @@ from components.util import *
 
 initialize_session()
 
-st.title("Evolutionary Tree App")
+st.title("Evolutionary Explorer")
 st.write("""
-    Welcome to the Evolutionary Tree App! 
+    Welcome to my Evolutionary Tree App! 
     - Press the **Create New Animal** button to create your own animal!
     - Navigate to the sidebar to view the evolutionary tree or press the **View Tree** button
     - Press the **Fetch New Animals** button to fetch new animals that other users have added.
@@ -17,12 +17,14 @@ st.write("""
 col1, col2 = st.columns(2)
 
 with col1:
-    st.button(
+    if st.button(
         "Create New Animal",
         type="primary",
         on_click=lambda: st.session_state.update({"popup_open": True}),
         width="stretch",
-    )
+    ):
+        fetch_animals(st.session_state.database)
+        create_animal_form()
     if st.button(
         "View Evolutionary Tree",
         type="secondary",
@@ -35,10 +37,6 @@ with col2:
     st.button(
         "Fetch New Animals", type="secondary", on_click=lambda: fetch_button_callback()
     )
-
-if st.session_state.popup_open:
-    fetch_animals(st.session_state.database)
-    create_animal_form()
 
 st.divider()
 
