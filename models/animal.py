@@ -95,25 +95,27 @@ class Animal:
         """Displays the details of the animal in a clean, sectioned dialog."""
         st.subheader(f"Name: {self.name}")
 
-        st.write("### Morphology")
+        st.write("## Morphology")
         st.write(f"**Symmetry:** {self.symmetry.value}")
         st.write(f"**Skeleton:** {self.skeleton_type.value}")
         st.write(f"**Body Covering:** {self.covering.value}")
         st.write(f"**Segmented Body:** {'Yes' if self.body_segmentation else 'No'}")
 
-        st.write("### Appendages")
+        st.write("## Appendages")
         st.write(
             f"**Legs:** {self.legs} | **Arms:** {self.arms} | **Wings:** {self.wings} | **Tentacles:** {self.tentacles}"
         )
 
-        st.write("### Physiology & Lifecycle")
+        st.write("## Physiology & Lifecycle")
         st.write(f"**Respiration:** {self.respiration.value}")
         st.write(f"**Warm-blooded:** {'Yes' if self.warm_blooded else 'No'}")
         st.write(f"**Lays Eggs:** {'Yes' if self.lays_eggs else 'No'}")
         st.write(f"**Metamorphosis:** {'Yes' if self.metamorphosis else 'No'}")
 
-        st.write("### Biogeography")
+        st.write("## Biogeography")
         st.write(f"**Habitat:** {self.habitat.value}")
+        st.write(f"**Region:** {self.region.value}")
+        st.write(f"**Prehistoric Region:** {self.region.ancient_continent}")
 
     def write_animal_name_clickable(self):
         """Displays animal name as a clickable text that opens more details."""
