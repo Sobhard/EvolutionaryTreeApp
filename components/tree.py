@@ -7,8 +7,31 @@ import streamlit as st
 from models.traits import Region
 
 
-def draw():
-    return
+def get_graph(animal_node_size: int, node_size: int):
+    """Main method for this file. It returns the edges of the evolutionary graph formatted
+    for apache echarts"""
+
+    distances = create_distance_matrix()
+    names = [a.name for a in st.session_state.animals]
+    links = neighbor_joining(distances, names)
+
+    node_names = set()
+    for edge in links:
+        node_names.add(edge["source"])
+        node_names.add(edge["target"])
+
+    data = []
+
+    for name in node_names:
+        if name[:5] == "Node_":
+            data.append(
+                {"name": name, "label": {"show": False}, "symbolSize": node_size}
+            )
+
+        else:
+            data.append({"name": name, "symbolSize": animal_node_size})
+
+    return {"data": data, "links": links}
 
 
 def calculate_distance(first: dict, second: dict) -> int:

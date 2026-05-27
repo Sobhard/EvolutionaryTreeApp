@@ -1,0 +1,11 @@
+[theme]
+backgroundColor = "#d7dec6"
+secondaryBackgroundColor = "#c1ceb3"
+primaryColor = "#96ae8d"
+borderColor = "#abbea0"
+font="Short Stack:https://fonts.googleapis.com/css2?family=Short+Stack&display=swap"
+headingFont="Pangolin:https://fonts.googleapis.com/css2?family=Pangolin&display=swap"
+
+[theme.sidebar]
+backgroundColor = "#c1ceb3"
+primaryColor = "#96ae8d"
