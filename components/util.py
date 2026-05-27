@@ -39,4 +39,4 @@ def switch_to_page(page_name: str):
 
     Input: Name of python file to Switch to
     """
-    st.switch_page(Path("Pages") / page_name)
+    st.switch_page(Path("pages") / page_name)
