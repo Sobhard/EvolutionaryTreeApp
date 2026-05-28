@@ -3,16 +3,25 @@
 import streamlit as st
 from models import traits, animal
 from components.database import add_animal
+from components.util import contains_bad_word
 
 
 @st.dialog("Create a New Animal")
 def create_animal_form():
     """Creates a form for users to input animal data safely inside a dialog."""
 
+    good_name = True
+
     with st.form("new_animal_submission_form", clear_on_submit=False):
 
         st.subheader("Basic Info")
         name: str = st.text_input("Animal Name")
+
+        if contains_bad_word(name):
+            good_name = False
+            st.error("Bad Language Detector Triggered! Please try a different name")
+        else:
+            good_name = True
 
         st.subheader("Morphology")
         symmetry = st.selectbox(
@@ -70,6 +79,10 @@ def create_animal_form():
                 st.error(
                     "Animal name is already in use, please choose a different name"
                 )
+                return
+
+            if not good_name:
+                st.error("Please change your name first!")
                 return
 
             # Instantiate the updated Animal class
