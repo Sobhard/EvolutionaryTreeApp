@@ -15,7 +15,7 @@ def get_graph(animal_node_size: int, node_size: int):
     names = [a.name for a in st.session_state.animals]
     links = neighbor_joining(distances, names)
     for edge in links:
-        edge["value"] = round(4 * (2 / (1 + edge["value"])), 3)
+        edge["value"] = round((4 / (1 + edge["value"])), 3)
 
     node_names = set()
     for edge in links:
